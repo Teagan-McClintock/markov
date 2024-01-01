@@ -25,10 +25,11 @@ describe("chain generation tests", function() {
 
 describe("branched text tests", function() {
 
+  let machine;
   let text;
 
   beforeEach(function() {
-    const machine = new MarkovMachine(STD_BRANCHED_TEXT);
+    machine = new MarkovMachine(STD_BRANCHED_TEXT);
     text = machine.getText();
   });
 
@@ -44,11 +45,23 @@ describe("branched text tests", function() {
     expect(text.endsWith("hat")).toEqual(true);
   });
 
-  test("generated text for normal input should have length of >7", function(){
+  test("generated text for normal input should have length of >=7", function(){
     expect(text.length).toBeGreaterThanOrEqual(7);
   });
 
-  //TODO: for each word, check that word after is in chains
+  test("generated text for normal input follows rules for Markov machine",
+    function(){
+      const textSplit = text.split(/[ \r\n]+/); //might only need space here?
+      for (let i = 0; i < textSplit.length - 1; i++){
+        expect(machine.chains[textSplit[i]]).toContain(textSplit[i + 1]);
+      }
+    });
+
+  test("last word has null in its Markov chain", function(){
+    const textSplit = text.split(/[ \r\n]+/);
+    const lastWord = textSplit[textSplit.length - 1];
+    expect(machine.chains[lastWord]).toContain(null);
+  });
 });
 
 describe("unbranched text tests", function() {
