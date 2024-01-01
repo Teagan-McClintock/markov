@@ -1,3 +1,5 @@
+"use strict";
+
 /** Textual markov chain generator. */
 
 const _ = require("lodash");
