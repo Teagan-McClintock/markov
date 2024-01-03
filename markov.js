@@ -53,7 +53,7 @@ class MarkovMachine {
     let wordToAdd = this.words[0];
     let outputText = '';
 
-    while (wordToAdd !== null) {
+    while (wordToAdd) {
       outputText += `${wordToAdd} `;
       wordToAdd = _.sample(this.chains[wordToAdd]);
     }
