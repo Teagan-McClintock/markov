@@ -47,6 +47,8 @@ describe("branched text tests", function() {
   test("generated text for normal input should have length of >7", function(){
     expect(text.length).toBeGreaterThanOrEqual(7);
   });
+
+  //TODO: for each word, check that word after is in chains
 });
 
 describe("unbranched text tests", function() {
